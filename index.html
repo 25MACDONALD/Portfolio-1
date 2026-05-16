@@ -1,54 +1,208 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Access</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+            text-align: center;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Utility class to hide elements */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="login-box">
-      <h1>Sign In</h1>
-      
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input 
-            type="text" 
-            id="username" 
-            name="username" 
-            placeholder="Enter your username" 
-            required
-          >
-        </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            placeholder="Enter your password" 
-            required
-          >
-        </div>
-
-        <button type="submit" class="btn-login">Sign In</button>
-      </form>
-
-      <div id="errorMessage" class="error-message"></div>
-      <div id="successMessage" class="success-message"></div>
-
-      <p class="demo-info">
-        Demo credentials:<br>
-        Username: <strong>testuser</strong><br>
-        Password: <strong>password123</strong>
-      </p>
+    <!-- SECTION 1: SIGN IN PAGE -->
+    <div id="signin-card" class="container">
+        <h2>Sign In</h2>
+        <p class="subtitle">Access your account portal</p>
+        
+        <form id="signin-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="Enter your password">
+            </div>
+            
+            <button type="submit">Sign In</button>
+        </form>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- SECTION 2: DETAILS FORM (Initially Hidden) -->
+    <div id="details-card" class="container hidden">
+        <h2>Bio-Data Form</h2>
+        <p class="subtitle">Please fill in your current details below</p>
+        
+        <form id="details-form">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" required placeholder="John Doe">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required placeholder="e.g., 0712345678">
+            </div>
+            
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id-number">ID Number / Passport</label>
+                <input type="text" id="id-number" required placeholder="Enter ID number">
+            </div>
+            
+            <div class="form-group">
+                <label for="ward">Ward</label>
+                <input type="text" id="ward" required placeholder="Enter your local ward">
+            </div>
+            
+            <button type="submit">Submit Details</button>
+        </form>
+    </div>
+
+    <!-- JAVASCRIPT FOR PAGE FLOW -->
+    <script>
+        const signinCard = document.getElementById('signin-card');
+        const detailsCard = document.getElementById('details-card');
+        
+        const signinForm = document.getElementById('signin-form');
+        const detailsForm = document.getElementById('details-form');
+
+        // Handle Sign-In Form Submission
+        signinForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop page from refreshing
+            
+            // Basic Frontend Validation placeholder 
+            // In production, you would verify credentials against a backend/Firebase here
+            
+            // Hide Sign-In Card and Show Details Card
+            signinCard.classList.add('hidden');
+            detailsCard.classList.remove('hidden');
+        });
+
+        // Handle Details Form Submission
+        detailsForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Collect the form data
+            const userData = {
+                name: document.getElementById('fullname').value,
+                phone: document.getElementById('phone').value,
+                dob: document.getElementById('dob').value,
+                idNumber: document.getElementById('id-number').value,
+                ward: document.getElementById('ward').value
+            };
+            
+            // Log to console as proof of concept
+            console.log("Submitted Data:", userData);
+            
+            alert("Details submitted successfully!");
+            
+            // Optional: Reset form or redirect
+            detailsForm.reset();
+        });
+    </script>
 </body>
 </html>
